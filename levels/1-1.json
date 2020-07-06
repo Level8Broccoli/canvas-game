@@ -1,0 +1,15 @@
+{
+  "backgrounds": [{
+    "tile": "desert",
+    "ranges": [{
+      "start": [0, 0],
+      "end": [24, 14]
+    }]
+  },{
+    "tile": "grass",
+    "ranges": [{
+      "start": [0, 14],
+      "end": [24, 24]
+    }]
+  }]
+}

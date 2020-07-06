@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  height: 80%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  border: 1px solid rgb(127, 131, 89);
+}
+
+h1 {
+  font-family: Calistoga, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
