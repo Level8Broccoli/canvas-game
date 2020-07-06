@@ -32,6 +32,7 @@ loadImage(TILESET_URL)
     const sprites = new SpriteSheet(image, TILE_SIZE, TILE_SIZE);
     sprites.define('grass', 2, 11);
     sprites.define('desert', 2, 17);
+    sprites.define('water', 20, 5);
 
     loadLevel('1-1').then(level => {
       level.backgrounds.forEach(background => {
