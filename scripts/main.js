@@ -1,4 +1,4 @@
-import SpriteSheet from './SpriteSheet.js';
+import SpriteSheet from './sprites/SpriteSheet.js';
 import {
   loadImage,
   loadLevel,
@@ -12,9 +12,6 @@ function drawBackground(type, x, y, ctx, sprites) {
 function loadSprites() {
   return loadImage(TILESET_URL).then(image => {
     const sprites = new SpriteSheet(image, TILE_SIZE, TILE_SIZE);
-    sprites.define('grass', 2, 11);
-    sprites.define('desert', 2, 17);
-    sprites.define('water', 20, 5);
     return sprites;
   });
 }
@@ -34,9 +31,13 @@ Promise.all([
   loadKeys(),
   loadLevel('1-1')
 ]).then(([sprites, keys, level]) => {
-  level.background.forEach((row, x) => {
-    row.forEach((tileKey, y) => {
-      drawBackground(keys[tileKey], x, y, ctx, sprites);
+
+  sprites.defineSprites(keys);
+
+
+  level.background.forEach((row, y) => {
+    row.forEach((tile, x) => {
+      drawBackground(tile, x, y, ctx, sprites);
     });
   });
 });

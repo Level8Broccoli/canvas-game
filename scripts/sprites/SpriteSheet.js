@@ -6,6 +6,12 @@ export default class SpriteSheet {
     this.tiles = new Map();
   }
 
+  defineSprites({sprites}) {
+    sprites.forEach(sprite => {
+      this.define(sprite.name, sprite.position.x, sprite.position.y);
+    });
+  }
+
   define(name, x, y) {
     const buffer = document.createElement('canvas');
     buffer.width = this.width;
