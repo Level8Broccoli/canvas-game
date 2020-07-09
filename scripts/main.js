@@ -36,8 +36,8 @@ Promise.all([
 
   const playerMarker = createPlayerMarker(sprites);
   const playerLayer = createPlayerLayer(playerMarker);
-  playerMarker.pos.set(2 * env.TILE_SIZE, 2 * env.TILE_SIZE);
-  playerMarker.vel.set(200, -300);
+  playerMarker.pos.set(5 * env.TILE_SIZE, 5 * env.TILE_SIZE);
+  playerMarker.vel.set(200, -600);
   comp.layers.push(playerLayer);
 
   const gravity = 30;
