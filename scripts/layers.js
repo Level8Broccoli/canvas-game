@@ -18,8 +18,8 @@ export function createBackgroundLayer(background, sprites, env) {
   };
 }
 
-export function createPlayerLayer(sprites, pos) {
+export function createPlayerLayer(entity) {
   return function drawPlayerLayer(ctx) {
-    sprites.drawTile('star', ctx, pos.x, pos.y);
+    entity.draw(ctx);
   };
 }
