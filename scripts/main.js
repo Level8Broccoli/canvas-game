@@ -9,6 +9,7 @@ import {
   createPlayerLayer
 } from './layers.js';
 import Compositor from "./Compositor.js";
+import Vec2 from "./math.js";
 
 const env = {
   TILE_SIZE: 32,
@@ -30,15 +31,8 @@ Promise.all([
   const backgroundLayer = createBackgroundLayer(level.background, sprites, env);
   comp.layers.push(backgroundLayer);
 
-  const playerPos = {
-    x: 2,
-    y: 2,
-  };
-
-  const playerVel = {
-    x: .2,
-    y: -.10,
-  };
+  const playerPos = new Vec2(2,2);
+  const playerVel = new Vec2(.2,-.1);
 
   const gravity = 0.05;
 
