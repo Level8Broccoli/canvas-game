@@ -12,8 +12,8 @@ import Compositor from "./Compositor.js";
 
 const env = {
   TILE_SIZE: 32,
-  GAME_WIDTH: 24,
-  GAME_HEIGHT: 24,
+  GAME_WIDTH: 12,
+  GAME_HEIGHT: 12,
 };
 
 const canvas = document.querySelector('canvas');
@@ -34,6 +34,14 @@ Promise.all([
     x: 2,
     y: 2,
   };
+
+  const playerVel = {
+    x: .2,
+    y: -.10,
+  };
+
+  const gravity = 0.05;
+
   const playerLayer = createPlayerLayer(sprites, playerPos);
   comp.layers.push(playerLayer);
 
@@ -41,8 +49,9 @@ Promise.all([
   function update() {
     comp.draw(ctx);
 
-    playerPos.x += 0.2;
-    playerPos.y += 0.2;
+    playerPos.x += playerVel.x;
+    playerPos.y += playerVel.y;
+    playerVel.y += gravity;
     requestAnimationFrame(update);
   }
   update();
