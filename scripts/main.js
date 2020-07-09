@@ -12,6 +12,7 @@ import Compositor from "./Compositor.js";
 import {
   createPlayerMarker
 } from "./entities.js";
+import Timer from "./Timer.js";
 
 const env = {
   TILE_SIZE: 32,
@@ -31,7 +32,7 @@ Promise.all([
   const comp = new Compositor();
 
   const backgroundLayer = createBackgroundLayer(level.background, sprites, env);
-  //  comp.layers.push(backgroundLayer);
+  comp.layers.push(backgroundLayer);
 
   const playerMarker = createPlayerMarker(sprites);
   const playerLayer = createPlayerLayer(playerMarker);
@@ -40,23 +41,13 @@ Promise.all([
   comp.layers.push(playerLayer);
 
   const gravity = 30;
-  const deltaTime = 1 / 60;
-  let accumuluatedTime = 0;
-  let lastTime = 0;
 
-  function update(time) {
-    accumuluatedTime += (time - lastTime) / 1000;
-
-    while (accumuluatedTime > deltaTime) {
-      comp.draw(ctx);
-      playerMarker.update(deltaTime);
-      playerMarker.vel.y += gravity;
-
-      accumuluatedTime -= deltaTime;
-    }
-
-    requestAnimationFrame(update);
-    lastTime = time;
+  const timer = new Timer(1 / 60);
+  timer.update = function update(deltaTime) {
+    comp.draw(ctx);
+    playerMarker.update(deltaTime);
+    playerMarker.vel.y += gravity;
   }
-  update(0);
+
+  timer.start();
 });
