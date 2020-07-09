@@ -9,7 +9,9 @@ import {
   createPlayerLayer
 } from './layers.js';
 import Compositor from "./Compositor.js";
-import Entity from "./Entity.js";
+import {
+  createPlayerMarker
+} from "./entities.js";
 
 const env = {
   TILE_SIZE: 32,
@@ -31,23 +33,11 @@ Promise.all([
   const backgroundLayer = createBackgroundLayer(level.background, sprites, env);
   comp.layers.push(backgroundLayer);
 
-  const playerMarker = new Entity();
-  playerMarker.pos.set(2, 2);
-  playerMarker.vel.set(.2, -.1);
-  playerMarker.update = function updateMario() {
-    this.pos.x += this.vel.x;
-    this.pos.y += this.vel.y;
-  };
-  playerMarker.draw = function drawPlayerMarker(ctx) {
-    sprites.drawTile('star', ctx, this.pos.x, this.pos.y);
-  };
-
-  const gravity = 0.05;
-
+  const playerMarker = createPlayerMarker(sprites);
   const playerLayer = createPlayerLayer(playerMarker);
   comp.layers.push(playerLayer);
 
-
+  const gravity = 0.05;
   function update() {
     comp.draw(ctx);
     playerMarker.update();
