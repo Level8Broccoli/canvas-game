@@ -32,5 +32,4 @@ Promise
         drawBackground(keys[tileKey], x, y, ctx, sprites);
       });
     });
-
   });
