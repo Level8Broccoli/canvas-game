@@ -9,7 +9,7 @@ function drawBackground(type, x, y, ctx, sprites) {
   sprites.drawTile(type, ctx, x, y);
 }
 
-function loadBackgroundSprites() {
+function loadSprites() {
   return loadImage(TILESET_URL).then(image => {
     const sprites = new SpriteSheet(image, TILE_SIZE, TILE_SIZE);
     sprites.define('grass', 2, 11);
@@ -29,12 +29,14 @@ const ctx = canvas.getContext('2d');
 canvas.width = GAME_WIDTH * TILE_SIZE;
 canvas.height = GAME_HEIGHT * TILE_SIZE;
 
-Promise
-  .all([loadBackgroundSprites(), loadKeys(), loadLevel('1-1')])
-  .then(([sprites, keys, level]) => {
-    level.background.forEach((row, x) => {
-      row.forEach((tileKey, y) => {
-        drawBackground(keys[tileKey], x, y, ctx, sprites);
-      });
+Promise.all([
+  loadSprites(),
+  loadKeys(),
+  loadLevel('1-1')
+]).then(([sprites, keys, level]) => {
+  level.background.forEach((row, x) => {
+    row.forEach((tileKey, y) => {
+      drawBackground(keys[tileKey], x, y, ctx, sprites);
     });
   });
+});
