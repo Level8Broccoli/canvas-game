@@ -31,19 +31,32 @@ Promise.all([
   const comp = new Compositor();
 
   const backgroundLayer = createBackgroundLayer(level.background, sprites, env);
-  comp.layers.push(backgroundLayer);
+  //  comp.layers.push(backgroundLayer);
 
   const playerMarker = createPlayerMarker(sprites);
   const playerLayer = createPlayerLayer(playerMarker);
+  playerMarker.pos.set(2 * env.TILE_SIZE, 2 * env.TILE_SIZE);
+  playerMarker.vel.set(200, -300);
   comp.layers.push(playerLayer);
 
-  const gravity = 0.05;
-  function update() {
-    comp.draw(ctx);
-    playerMarker.update();
+  const gravity = 30;
+  const deltaTime = 1 / 60;
+  let accumuluatedTime = 0;
+  let lastTime = 0;
 
-    playerMarker.vel.y += gravity;
+  function update(time) {
+    accumuluatedTime += (time - lastTime) / 1000;
+
+    while (accumuluatedTime > deltaTime) {
+      comp.draw(ctx);
+      playerMarker.update(deltaTime);
+      playerMarker.vel.y += gravity;
+
+      accumuluatedTime -= deltaTime;
+    }
+
     requestAnimationFrame(update);
+    lastTime = time;
   }
-  update();
+  update(0);
 });
