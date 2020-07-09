@@ -30,11 +30,8 @@ Promise.all([
   loadSprites(),
   loadKeys(),
   loadLevel('1-1')
-]).then(([sprites, keys, level]) => {
-
-  sprites.defineSprites(keys);
-
-
+]).then(([sprites, map, level]) => {
+  sprites.defineAllSprites(map);
   level.background.forEach((row, y) => {
     row.forEach((tile, x) => {
       drawBackground(tile, x, y, ctx, sprites);

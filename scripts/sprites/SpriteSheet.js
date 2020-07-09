@@ -6,7 +6,7 @@ export default class SpriteSheet {
     this.tiles = new Map();
   }
 
-  defineSprites({sprites}) {
+  defineAllSprites({sprites}) {
     sprites.forEach(sprite => {
       this.define(sprite.name, sprite.position.x, sprite.position.y);
     });
