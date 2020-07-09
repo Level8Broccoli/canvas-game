@@ -1,6 +1,6 @@
 import SpriteSheet from './SpriteSheet.js';
 
-function loadImage(url) {
+function loadTileset(url = '/assets/tileset.png') {
   return new Promise(resolve => {
     const image = new Image();
     image.addEventListener('load', () => resolve(image));
@@ -8,9 +8,15 @@ function loadImage(url) {
   });
 }
 
-export function loadSprites(size, url = '/assets/tileset.png') {
-  return loadImage(url).then(image => {
-    const sprites = new SpriteSheet(image, size, size);
-    return sprites;
-  });
+function loadKeys(url = '/scripts/sprites/sprite-map.json') {
+  return fetch(url).then(r => r.json());
+}
+
+export function loadSprites(size, ) {
+  return Promise.all([loadTileset(), loadKeys()])
+    .then(([image, map]) => {
+      const sprites = new SpriteSheet(image, size, size);
+      sprites.defineAllSprites(map);
+      return sprites;
+    });
 }

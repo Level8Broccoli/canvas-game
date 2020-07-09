@@ -1,6 +1,5 @@
 import {
-  loadLevel,
-  loadKeys
+  loadLevel
 } from "./loaders.js";
 import {
   loadSprites
@@ -24,11 +23,9 @@ canvas.height = env.GAME_HEIGHT * env.TILE_SIZE;
 
 Promise.all([
   loadSprites(env.TILE_SIZE),
-  loadKeys(),
-  loadLevel('1-1')
-]).then(([sprites, map, level]) => {
+  loadLevel()
+]).then(([sprites, level]) => {
   const comp = new Compositor();
-  sprites.defineAllSprites(map);
 
   const backgroundLayer = createBackgroundLayer(level.background, sprites, env);
   comp.layers.push(backgroundLayer);
